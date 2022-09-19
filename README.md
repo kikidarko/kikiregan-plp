@@ -4,7 +4,7 @@ Hello! My name is Kiki Regan and this tutorial will walk you through the basics 
 
 ## Why Scala?
 
-Scala has been described as a "compiler-based, multi-paradigm computer programming language" designed to address issues with Java[^1]. Its combination of object-oriented as well as functional programming make it much more scalable than languages like Java, and its ability to handle huge amounts of data makes it an important player in the data science realm. 
+Scala has been described as a "compiler-based, multi-paradigm computer programming language" designed to address issues with Java[^1]. Its combination of object-oriented as well as functional programming make it much more scalable than languages like Java, and its ability to handle huge amounts of data makes it an important player in the data science realm. As someone interested in data science with a background in Java, Scala seemed like the perfect language to explore.
 
 Some of the advantages of Scala include:
 - JVM (Java Virtual Machine; Java) — Because it runs over JVM, Scala is compatible with all existing Java programs[^2].
@@ -65,8 +65,32 @@ In the above example, `Hello` is the name of the class and `extend App` is used 
 
 Right-click on your class (in the above example it's `Hello`) and select **Run**. Now you've written and executed your first bit of Scala code!
 
+## (Some) Scala syntax
+
+A more accurate title to this section might be "Scala VS Java Syntax". Here are some of the key differences between the two languages[^6]:
+1. Scala uses both `val` and `var`; 'val' is *immutable*, or cannot be changed, while *var* can be changed. `val` is similar to `final` in Java.
+2. Additionally, Scala does require type declaration, but it comes after the variable name. For example:
+```
+// Java
+Animal a = getAnimal();
+
+// Scala
+val a: Animal = getAnimal();
+```
+3. Type declarations can *usually* be omitted. This is why type declaration comes last. Unlike Java, the following would execute just fine:
+```
+val a = getAnimal();
+```
+4. Semicolons are not needed to denote the end of a line and are typically used when there are multiple statements on the same line.
+
+There are many, many more syntax notes that could be included here, but this should offer a decent start.
+
+
+Comments are the same in both Scala and Java (`// to comment single lines, /* */ for multiple`). Both languages require 
+
 [^1]: Source: https://www.sdgyoungleaders.org/blog/what-is-scala-a-brief-guide/
 [^2]: Source: https://codersera.com/blog/what-is-scala-used-for-a-brief-overview/
 [^3]: Source: https://searchteam.eu/what-is-scala-programming-language-used-for/
 [^4]: Source: https://docs.scala-lang.org/getting-started/intellij-track/building-a-scala-project-with-intellij-and-sbt.html
 [^5]: "sbt is a popular tool for compiling, running, and testing Scala projects of any size" from https://docs.scala-lang.org/getting-started/intellij-track/building-a-scala-project-with-intellij-and-sbt.html
+[^6]: Source: https://itnext.io/scala-syntax-for-java-developers-69734ce17cdf
