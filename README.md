@@ -85,7 +85,6 @@ val a = getAnimal();
 
 There are many, many more syntax notes that could be included here, but this should offer a decent start.
 
-
 Comments are the same in both Scala and Java (`// to comment single lines, /* */ for multiple`). 
 
 ## Data Types and Naming Conventions
@@ -217,14 +216,264 @@ Logical operators in Scala:
 
 Both of these are short-circuit operators. Bitwise operators (& and |) **do not** short circuit. Finally, equality (==) is the same in Scala as in Java.
 
+Scala can also accomodate mixed-type operations. Arithmetic operations can be used with integers and doubles without type casting. Also, much like in Java, integers, doubles, and booleans can be concatenated inside of a print statement with '+' without type casting.
 
-### Mixed-type operations
+## Conditionals and booleans
 
-### Binding
+In Scala, boolean values are stored as `true` and `false`. Scala uses the followign conditional statements:
 
-### Explicitly or implicitly typed
+- if
+- if-else
+- nested if-else
+- if-else ladder
 
-## Selection and Conditionals
+Many conditionals work the same way in Scala as they do in Java. The following examples are borrowed from [GeeksforGeeks](https://www.geeksforgeeks.org/scala-decision-making-if-if-else-nested-if-else-if-else-if/#:~:text=The%20conditional%20statements%20of%20Scala%20are%3A%20if%3B%20if-else%3B,then%20that%20block%20of%20code%20will%20not%20execute.):
+
+###if
+
+``` cadence
+// Scala program to illustrate the if statement
+object Test {
+      
+// Main Method
+def main(args: Array[String]) {
+      
+    // taking a variable
+    var a: Int = 50
+  
+    if (a > 30) 
+    {
+        // This statement will execute as a > 30
+        println("GeeksforGeeks")
+    }
+}
+}
+```
+Output:
+```
+GeeksforGeeks
+```
+
+### if-else
+``` cadence
+// Scala program to illustrate the if-else statement
+object Test {
+      
+// Main Method
+def main(args: Array[String]) {
+      
+    // taking a variable
+    var a: Int = 650
+  
+    if (a > 698) 
+    {
+        // This statement will not execute as a > 698 is false
+        println("GeeksforGeeks")
+    }
+      
+    else
+    { 
+        // This statement will execute
+        println("Sudo Placement")
+    }
+}
+}
+```
+Output
+```
+Sudo Placement
+```
+
+### nested if-else
+
+``` cadence
+// Scala program to illustrate the nested if-else statement
+object Test {
+      
+// Main Method
+def main(args: Array[String]) {
+      
+    // taking three variables
+    var a: Int = 70
+    var b: Int = 40
+    var c: Int = 100
+  
+    // condition_1
+    if (a > b) {
+        // condition_2
+        if(a > c) {
+            println("a is largest");
+        }  
+        else {
+            println("c is largest")
+        }    
+    }
+      
+    else { 
+         // condition_3
+        if(b > c) {
+            println("b is largest")
+        }  
+        else {
+            println("c is largest")
+        }
+    }
+}
+}
+```
+Output:
+```
+c is largest
+```
+
+### if-else ladder
+
+``` cadence
+// Scala program to illustrate the if-else-if ladder 
+object Test {
+      
+// Main Method    
+def main(args: Array[String]) {
+      
+    // Taking a variable
+    var value: Int = 50
+  
+    if (value == 20) 
+    {
+        // print "value is 20" when above condition is true
+        println("Value is 20")
+    } 
+      
+    else if (value == 25) {
+        // print "value is 25" when above condition is true
+        println("Value is 25")
+    } 
+    
+    else if (value == 40) {
+        // print "value is 40" when above condition is true
+        println("Value is 40")
+    } 
+    
+    else {
+        // print "No Match Found" when all condition is false
+        println("No Match Found")
+    }
+}
+}
+```
+Output:
+```
+No Match Found
+```
+
+Notice that, as with Java, Scala 2 deliminates blocks of code with curly brackets. In Scala 3, curly brackets in if-else statements are replaced with the reserve word `then`; indentation is essential. You can still use Scala 2 formatting in Scala 3, but not the other way around. Here is an example of Scala 3 formatting using the most recent if-else ladder example above:
+
+``` cadence
+def main(args: Array[String]) 
+
+    var value: Int = 50
+  
+    if (value == 20) then
+        println("Value is 20")
+    else if (value == 25) then
+        println("Value is 25")
+    else if (value == 40) then
+        println("Value is 40")
+    else 
+        println("No Match Found")
+```
+
+## Short-circuiting
+
+Logical operators such as `&&` and `||` are short-circuit operators; expressions with either operator do not always evaluate both of its operands[^13]. Here is an example from [Baeldung](https://www.baeldung.com/scala/operators-intro#:~:text=As%20we%20can%20see%2C%20%26%20evaluates%20both%20sides,data%20types.%20Scala%20has%20the%20following%20bitwise%20operators%3A):
+
+``` cadence
+def printTrue() : Boolean = {
+  println("true");
+  true
+}
+
+def printFalse() : Boolean = {
+  println("false"); 
+  false
+}
+
+val result1 = printFalse() && printTrue() // only "false" is printed
+assert(result1 == false)
+val result2 = printTrue() && printFalse() // "true" and "false" are printed
+assert(result2 == false)
+```
+
+In the example above, `result1` only prints `false` because the first operand in the *and* statement is false, therefore the entire statement can never be true; there's no need to execute the second function. In the second example, `result2`, both are executed because the first statement is `true`; the program needs to execute the second function as well to ensure that the entire statement is true. 
+
+Bitwise operators (`&` and `|`), on the other hand, **do not** short circuit. If you want to execute both operands in a statement, use bitwise operators.
+
+## Dangling else
+
+According to [GeeksforGeeks](https://www.geeksforgeeks.org/dangling-else-ambiguity/#:~:text=The%20dangling%20else%20problem%20in%20syntactic%20ambiguity.%20It,with%20which%20%E2%80%9C%20if%20%E2%80%9D%20it%20should%20combine.), "the dangling else problem in syntactic [ambiguity](https://www.geeksforgeeks.org/removal-of-ambiguity-converting-an-ambiguos-grammar-into-unambiguos-grammar/)... occurs when we use *nested if*. When there are multiple *'if'* statements, the *'else'* part doesn't get a clear view with which *'if'* it should combine"[^14].
+
+Here's an example[^14]:
+
+``` cadence
+if (condition) {
+}
+if (condition 1) {
+}
+ if (condition 2) {
+}
+   else
+   {
+       }
+```
+
+In the example above, it's not clear where the `else` should be applied to. This "dangling else" can lead to issues with your program because it can execute when not appropriate. To avoid the dangling else, be sure to either a) nest your if-statements inside of each other or b) use the if-else ladder. Here are some examples:
+
+a) nesting your if statements
+
+``` cadence
+if (condition) {
+     if (condition 1) {
+          if (condition 2) {}
+}
+}
+ else {
+ }
+```
+
+b) using the if-else ladder
+
+``` cadence
+if(condition) {
+}
+else if(condition-1) {
+}
+else if(condition-2){
+}
+else{
+}
+```
+
+## Pattern matching
+
+Scala does not have switch statements. Instead, it uses **pattern matching**, a "mechanism for checking a value against a pattern"[^15]. Pattern matching is a more powerful version of the switch statement and can also be used instead of if/else statements. Match expressions have a value, the `match` keyword, and at least one `case` clause. This is what the syntax should look like[^15]:
+
+*Note that Scala 3 will look the same, just without the curly brackets.*
+
+``` cadence
+import scala.util.Random
+
+val x: Int = Random.nextInt(10)
+
+x match {
+  case 0 => "zero"
+  case 1 => "one"
+  case 2 => "two"
+  case _ => "other"
+}
+```
+
+Much like a switch statement, the value of x is sent into this function and compared to each case, returning the value on the right hand side. Scala does not have `break` or `continue`, so loops and pattern matching require some more thinking[^16]. 
+
 
 
 [^1]: Source: https://www.sdgyoungleaders.org/blog/what-is-scala-a-brief-guide/
@@ -240,3 +489,6 @@ Both of these are short-circuit operators. Bitwise operators (& and |) **do not*
 [^11]: Source: https://stackoverflow.com/questions/17072179/difference-between-strongly-and-weakly-typed-languages
 [^12]: Source: https://www.includehelp.com/scala/lazy-val.aspx#:~:text=Scala%20programming%20language%20allows%20the%20user%20to%20initialize,is%20first%20used%20or%20accessed%20in%20the%20code.
 [^13]: Source: https://www.baeldung.com/scala/operators-intro#:~:text=Scala%20has%20following%20arithmetic%20binary%20operators%20available%20for,Multiplication%20%28%2A%29%204%20Division%20%28%2F%29%205%20Remainder%20%28%25%29
+[^14]: Source: https://www.geeksforgeeks.org/dangling-else-ambiguity/#:~:text=The%20dangling%20else%20problem%20in%20syntactic%20ambiguity.%20It,with%20which%20%E2%80%9C%20if%20%E2%80%9D%20it%20should%20combine.
+[^15]: Source: https://docs.scala-lang.org/tour/pattern-matching.html
+[^16[: Source: https://softwareengineering.stackexchange.com/questions/259883/why-does-scala-have-return-but-not-break-and-continue#:~:text=Scala%20does%20not%20have%20break%20or%20continue%2C%20so,can%20be%20accomplished%20in%20better%2C%20less%20surprising%20ways.
