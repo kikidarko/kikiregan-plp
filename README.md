@@ -474,6 +474,240 @@ x match {
 
 Much like a switch statement, the value of x is sent into this function and compared to each case, returning the value on the right hand side. Scala does not have `break` or `continue`, so loops and pattern matching require some more thinking[^16]. 
 
+## Loops
+
+Scala has three kinds of loops: **while, do...while,** and **for**[^17]. 
+
+### `while` loop
+
+As with many other programming languages (such as Java), while loops take in a condition inside of parentheses and continues to run until the end condition is met. Here is an example of a while loop from GeeksforGeeks[^17]:
+
+``` cadence
+object whileLoopDemo {
+     
+    def main(args: Array[String]) {
+        var x = 1;
+ 
+        // Exit when x becomes greater than 4
+        while (x <= 4) {
+            println("Value of x: " + x);
+ 
+            // Increment the value of x for next iteration
+            x = x + 1;
+        }
+    }
+}
+
+```
+Output:
+```
+Value of x: 1
+Value of x: 2
+Value of x: 3
+Value of x: 4
+```
+
+If a loop's end condition is never met, it becomes an infinite loop. For example, in the code snippet above, if we didn't increment `x` at the end of the loop, the loop condition `x <= 4` would always remain true, thus the loop would continue to execute.
+
+### `do...while` loop
+
+A do...while loop is very similar to a while loop, but actually runs the contents of the loop at least once regardless of whether the condition is true. After the first run through the loop, the condition is checked; if true, the loop executes again until termination as with a while loop. If false, the loop terminates and does not run again. The distinction between a `while` loop and a `do..while` loop is important: `while` will **only** run as long as the loop condition is true; `do...while` will **always** run once before checking whether the loop condition is true, then run as a normal `while` loop. Here is an example from GeeksforGeeks[^17]:
+
+``` cadence
+object dowhileLoopDemo {
+
+    def main(args: Array[String]) {
+        var a = 10;
+ 
+        // using do..while loop
+        do {
+            print(a + " ");
+            a = a - 1;
+        } while (a > 0);
+    }
+}
+```
+Output:
+```
+10 9 8 7 6 5 4 3 2 1 
+```
+
+In the example above, `a` will be printed and its value will change from 10 to 9 even before the loop condition (a > 0) is checked. 
+
+### `for` loop
+
+For loops are very similar to while loops but have a different syntax. These are best used when a programmer intends to execute a loop a certain number of times. If the programmer knows that a loop will be run exactly 10 times, `for` is more intuitive than a `while` or `do...while`.
+
+Here is an example of the syntax from GeeksforGeeks[^17]:
+
+``` cadence
+object forloopDemo {
+
+   def main(args: Array[String]) {
+        
+      var y = 0;
+       
+      // for loop execution with range
+      for (y <- 1 to 7) {
+         println("Value of y is: " + y);
+      }
+   }
+}
+
+```
+Output:
+```
+Value of y is: 1
+Value of y is: 2
+Value of y is: 3
+Value of y is: 4
+Value of y is: 5
+Value of y is: 6
+Value of y is: 7
+```
+
+Additionally, Scala supports nested loops — loops inside of other loops.
+
+# Functions!
+
+At this point, it's difficult to avoid the elephant in the room: **Scala is a functional programming language**. But what does this mean? According to XenonStack, Scala's treatment of functions as "first-class citizens where they can be assigned names, passed as arguments, and returned from other functions as a data type"[^18]. "Scala is functional in the sense that each function is a value in Scala... it also supports currying and anonymous functions... allowing programmers flexibility to write clean, concise, and elegant code"[^18].
+
+While you don't *have* to write in a functional style (which [some argue](https://stackoverflow.com/questions/6166155/is-scala-a-functional-programming-language#:~:text=Anyway%2C%20the%20bottom%20line%20is%20that%20Scala%20is,expects%20from%20a%20functional%20programming%20language%2C%20however.%20Share) invalidates Scala as a functional language), this flexibility is what converts Java users to dedicated Scala advocates. You can program nearly the same in Scala as Java, but Scala offers function flexibility impossible to find in Java.
+
+## Function syntax
+
+In general, functions have the following components[^19]:
+
+- **def keywords**: `def` is the keyword used to define functions in Scala
+- **function name**: the name of the function follows lower camel-case convention (`thisIsMyFunctionName`). It can also have the following characters: +, ~, -, &, \, /, etc.
+- **parameters**: a comma-separated list of parameters preceeded with their data type within enclosed parentheses
+- **return type**: return type of parameters **must** be specified, although return type of a function is optional. If a function's return type isn't specified, the default return type is `Unit`, which is equivalent to `void` in Java
+- **=**: a function can be created with or without this operator. If used, the function will return desired value; otherwise, no value will be returned
+- **method body**: enclosed between curly brackets {}, this is the code to operate within the function
+
+Here is the general syntax blueprint for a Scala function[^19]:
+
+``` cadence
+def function_name ([parameter_list]) : [return_type] = {
+   
+  // function body
+
+}
+
+```
+
+Functions can be called two different ways[^19]:
+
+```
+// the standard way
+function_name(paramter_list)
+
+// using an instance and dot notation
+[instance].function_name(paramter_list)
+```
+
+Putting it all together, here is an example of a simple function declaration and call[^19]:
+
+``` cadence
+object GeeksforGeeks {
+      
+   def main(args: Array[String]) {
+         
+      // Calling the function
+      println("Sum is: " + functionToAdd(5,3));
+   }
+     
+   // declaration and definition of function
+   def functionToAdd(a:Int, b:Int) : Int = 
+   {
+         
+       var sum:Int = 0
+       sum = a + b
+  
+       // returning the value of sum
+       return sum
+   }
+}
+```
+Output:
+```
+Sum is: 8
+```
+
+Here are the different kinds of functions that Scala offers:
+
+### Normal function
+
+This is the most straight-forward function in Scala. Although there's an example above, here's another example that does not return anything (returns `Unit`, the same as `void` in Java):
+
+``` cadence
+// written on one line
+def addTwo(i: Int): Int = i + 2
+
+// written on mulitple lines
+def addTwo(i: Int) {
+  Int = i + 2
+}
+```
+
+### Function that accepts functions as parameters
+
+In functional programming languages, functions are king. They can do things that aren't possible in object-oriented languages like Java or Python. In Scala, you can actually pass a function in as a parameter. Here's an example:
+
+```cadence
+object Multiply extends App {
+
+def double(i: Int): Int = i * 2
+def triple(i: Int):Int = i * 3
+def multiply(value:Int, mulFunc : Int => Int) = mulFunc(value)
+println(multiply(3,triple))
+
+}
+```
+
+The function `multiply()` accepts `triple()` as an argument in place of the `mulFunc()` parameter. 
+
+### Functions that return functions
+
+As seen in the example above, the return type of the function `multiply()` is the value returned from the function `multiply()`; this is actually the value that is returned from `mulFunc()` (in this case, `triple()`). The value returned from `triple()` is `Int`, therefore the value returned from `multiply()` is `Int` as well. Passing values to and from functions like this is a unique feature of functional programming languages like Scala.
+
+Another way to do this is by specifying the return value as a primitive (`String`, `Int`, `Double`, `Boolean`) and returning the function inside of the initial function. Here's an example of this[^18]:
+
+```cadence
+object Hello extends App {
+
+  //Greetings function as a main wrapper to select language and greet
+  def Greetings(lang: String): String = {
+    lang match {
+      case "spanish"=> GreetingsSpanish()
+      case _ => GreetingsEnglish()
+    }
+  }
+
+  //Greet in Spanish
+  def GreetingsSpanish():String = "Hola"
+
+  //Greet in English
+  def GreetingsEnglish():String = "Hello"
+
+  //Call greetings function
+
+  println(Greetings("spanish"))
+}
+```
+
+In the example above, the return type of `Greetings()` is specified as `String`. Inside of the function, the functions `GreetingsSpanish()` or `GreetingsEnglish()` are called depending on the initial argument passed to `Greetings()`.
+
+As with Java, functions in Scala should be placed outside of `main()`.
+
+Recursion is common in Scala, as with other functional languages. Recursion - functions calling themselves - can be an extremely useful tool, but deep recursion can lead to stack overflow: when the stack runs out of space.
+
+
+
+
+
+
+
 
 
 [^1]: Source: https://www.sdgyoungleaders.org/blog/what-is-scala-a-brief-guide/
@@ -491,4 +725,7 @@ Much like a switch statement, the value of x is sent into this function and comp
 [^13]: Source: https://www.baeldung.com/scala/operators-intro#:~:text=Scala%20has%20following%20arithmetic%20binary%20operators%20available%20for,Multiplication%20%28%2A%29%204%20Division%20%28%2F%29%205%20Remainder%20%28%25%29
 [^14]: Source: https://www.geeksforgeeks.org/dangling-else-ambiguity/#:~:text=The%20dangling%20else%20problem%20in%20syntactic%20ambiguity.%20It,with%20which%20%E2%80%9C%20if%20%E2%80%9D%20it%20should%20combine.
 [^15]: Source: https://docs.scala-lang.org/tour/pattern-matching.html
-[^16[: Source: https://softwareengineering.stackexchange.com/questions/259883/why-does-scala-have-return-but-not-break-and-continue#:~:text=Scala%20does%20not%20have%20break%20or%20continue%2C%20so,can%20be%20accomplished%20in%20better%2C%20less%20surprising%20ways.
+[^16]: Source: https://softwareengineering.stackexchange.com/questions/259883/why-does-scala-have-return-but-not-break-and-continue#:~:text=Scala%20does%20not%20have%20break%20or%20continue%2C%20so,can%20be%20accomplished%20in%20better%2C%20less%20surprising%20ways.
+[^17]: Source: https://www.geeksforgeeks.org/scala-loopswhile-do-while-for-nested-loops/#:~:text=Scala%20provides%20the%20different%20types%20of%20loop%20to,do..while%20Loop%20for%20Loop%20Nested%20Loops%20while%20Loop.
+[^18]: Source: https://www.xenonstack.com/insights/functional-programming-in-scala
+[^19]: Source: https://www.geeksforgeeks.org/scala-functions-basics/
