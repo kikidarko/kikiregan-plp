@@ -709,7 +709,6 @@ Recursion is common in Scala, as with other functional languages. Recursion - fu
 
 
 
-
 [^1]: Source: https://www.sdgyoungleaders.org/blog/what-is-scala-a-brief-guide/
 [^2]: Source: https://codersera.com/blog/what-is-scala-used-for-a-brief-overview/
 [^3]: Source: https://searchteam.eu/what-is-scala-programming-language-used-for/
