@@ -702,8 +702,149 @@ As with Java, functions in Scala should be placed outside of `main()`.
 
 Recursion is common in Scala, as with other functional languages. Recursion - functions calling themselves - can be an extremely useful tool, but deep recursion can lead to stack overflow: when the stack runs out of space.
 
+## Classes and Inheritance
 
+Although Scala is considered to be a functional programming language, it can also be used in an object-oriented way. According to Scala Docs, the language includes the following tools for object-oriented programing[^20]:
 
+- **Traits** let you specify abstract interfaces as well as concrete application
+- **Mixin Composition** give you the tools to compose components from smaller parts
+- **Classes** can implements interfaces specifies by traits
+- **Instances** of classes can have their own private state
+- **Subtyping** lets you use an instance of one class where an instance of a superclass is expected
+- **Access Modifiers** let you control which members of a class can be accessed by which part of the code
+
+### Traits
+
+Unlike in Java, Scala's primary mode of decomposition is using **traits**, not classes. They can be used to describe abstract interfaces as well as concrete implementation. The below example is from Scala documentation[^20]:
+
+```
+// abstract
+trait Showable:
+  def show: String
+
+// concrete 
+trait Showable:
+  def show: String
+  def showHtml = "<p>" + show + "</p>"
+```
+Above, the method `showHtml` is defined *in terms* of `show`. Traits can include[^20]:
+
+- abstract methods (as seen above) `def m(): T`
+- abstract value definitions `val x: T`
+- abstract type members `type T`
+- abstract givens (only in Scala 3!) `given t: T`
+
+### Mixin Composition
+
+Scala also includes a way to combine mulitple traits: **Mixin composition**[^20]. The example below shows two traits that can be combined using a new trait to extend them:
+
+```
+// two (potentially defined) traits:
+trait GreetingService:
+  def translate(text: String): String
+  def sayHello = translate("Hello")
+
+trait TranslationService:
+  def translate(text: String): String = "..."
+  
+// using mixin composition to create a new trait extending them
+trait ComposedService extends GreetingService, TranslationService
+```
+
+Abstract members in one trait (`translate` in `GreetingService`) are automatically matched with concrete members in another trait[^20]. This works with all of the abstract methods above.
+
+### Classes and Inheritance
+
+As mentioned above, traits are incredibly useful for modularizing components and describing interfaces, but at some point you will want to create instances of those traits. According to the Scala documentation, classes should only be used at the leafs of an inheritance model. In Scala 3, traits can even take parameters, further supporting this design suggestion[^20].
+
+As with traits, classes can extend multiple traits but only one superclass:
+
+```
+// from the Scala documentation
+class MyService(name: String) extends ComposedService, Showable:
+  def show = s"$name says $sayHello"
+```
+
+As you can see, Scala uses the keyword `extends` to inherit from another trait/class/superclass.
+
+The types of inheritance that Scala supports are[^21]:
+
+- **Single Inheritance** where one class inherits from another base class
+- **Multilevel Inheritance** where a derived class both inherits a base class and acts as a base class for another class. For example, A->B->C, where A inherits from B, and B inherits from C
+- **Hierarchical Inheritance** where multiple classes can extend the same superclass (alternatively, where one class serves as a superclass for multiple base classes)
+- **Multiple Inheritance** where a class can extend multiple classes
+- **Hybrid Inheritance** is a mix of at least two of the above methods. **This cannot be done with classes but is possible with traits**
+
+**Note**: although it's possible to extend another class, because *traits* are designed as the primary means of decomposition, it isn't recommended to extend a class definied in one file from another file[^20].
+
+### Subtyping
+
+The following is an instance of the `MyService` class that we created earlier:
+
+```
+val s1: MyService = MyService("Service 1")
+```
+
+Through subtyping, `s1` can be used everywhere that any of the extended traits is expected[^20]:
+
+```
+val s2: GreetingService = s1
+val s3: TranslationService = s1
+val s4: Showable = s1
+// ... and so on ...
+```
+
+### Access Modifiers
+
+Much like other languages such as Java, Scala implements varying levels of access modifiers[^22]: 
+
+- **public** is the default in Scala; can be accessed from anywhere
+- **private** access is only provided to other members of the class 
+- **protected** access is limited to the same class and its subclass
+
+### Standard Methods
+
+Like Java, Scala uses the `toString()` function in classes to override the default `toString()` method and print a customized summary of an object. 
+
+```
+// Overriding tostring method
+    override def toString() : String = { 
+        return "[Total Article : " + LangArticle + 
+                ", Language Name = " + LangName+"]";
+    }
+```
+
+Note that the keywords `override` is necessary. 
+
+Getter and setter methods are also utilized in Scala to control data access within classes.
+
+### Overloading 
+
+In Scala, overloading is used when multiple methods within the same class exist with the same name but different parameters. This allows for flexibility in implementation. Look at the following example from Java T Point[^23]:
+
+```
+class Arithmetic{  
+    def add(a:Int, b:Int){  
+        var sum = a+b  
+        println(sum)  
+    }  
+    def add(a:Int, b:Int, c:Int){  
+        var sum = a+b+c  
+        println(sum)  
+    }  
+}  
+  
+object MainObject{  
+    def main(args:Array[String]){  
+        var a  = new Arithmetic();  
+        a.add(10,10);  
+        a.add(10,10,10);  
+    }  
+}  
+```
+
+The `add` methods can therefore be used with either 2 or 3 arguments. This is helpful when there are multiple possible cases of function implementation.
+ 
 
 
 
@@ -728,3 +869,7 @@ Recursion is common in Scala, as with other functional languages. Recursion - fu
 [^17]: Source: https://www.geeksforgeeks.org/scala-loopswhile-do-while-for-nested-loops/#:~:text=Scala%20provides%20the%20different%20types%20of%20loop%20to,do..while%20Loop%20for%20Loop%20Nested%20Loops%20while%20Loop.
 [^18]: Source: https://www.xenonstack.com/insights/functional-programming-in-scala
 [^19]: Source: https://www.geeksforgeeks.org/scala-functions-basics/
+[^20]: Source: https://docs.scala-lang.org/scala3/book/domain-modeling-oop.html
+[^21]: Source: https://www.geeksforgeeks.org/inheritance-in-scala/
+[^22]: Source: https://www.includehelp.com/scala/access-modifiers-in-scala.aspx#:~:text=Access%20modifiers%20in%20Scala%201%201%29%20Public%20access,an%20error.%20...%203%203%29%20Protected%20access%20modifier
+[^23]: Source: https://www.javatpoint.com/scala-method-overloading
