@@ -59,7 +59,7 @@ object Hello extends App {
   println("Hello, World!")
 }
 ```
-In the above example, `Hello` is the name of the class and `extend App` is used to turn the object into an executable program. Now that we have the code written, let's execute it!
+In the above example, `Hello` is the name of the class and `extend App` is used to turn the object into an executable program. Note that in Scala, `main` is always a *singleton object*; this essentially replaces `static` in Java, allowing an entry point for program execution[^24]. Now that we have the code written, let's execute it!
 
 ### Running your code
 
@@ -873,3 +873,4 @@ The `add` methods can therefore be used with either 2 or 3 arguments. This is he
 [^21]: Source: https://www.geeksforgeeks.org/inheritance-in-scala/
 [^22]: Source: https://www.includehelp.com/scala/access-modifiers-in-scala.aspx#:~:text=Access%20modifiers%20in%20Scala%201%201%29%20Public%20access,an%20error.%20...%203%203%29%20Protected%20access%20modifier
 [^23]: Source: https://www.javatpoint.com/scala-method-overloading
+[^24]: Source: https://www.geeksforgeeks.org/scala-singleton-and-companion-objects/#:~:text=In%20Scala%2C%20a%20singleton%20object%20can%20extend%20class,to%20create%20an%20object%20to%20access%20this%20method.
