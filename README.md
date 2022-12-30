@@ -845,9 +845,9 @@ object MainObject{
 
 The `add` methods can therefore be used with either 2 or 3 arguments. This is helpful when there are multiple possible cases of function implementation.
  
+# Conclusion
 
-
-
+Scala is a unique language that allows for both object-oriented and functional programming, often at the same time. It runs on the Java Virtual Machine and therefore takes advantage of many Java benefits. It's concise yet powerful and, after looking into it for four months, still don't understand many of its intricacies. That said, there's a folder with a simple task manager attached to this tutorial and I encourage you to look through it to see an example of a program that does, in fact, run in Scala. Thank you for reading my tutorial!
 
 
 [^1]: Source: https://www.sdgyoungleaders.org/blog/what-is-scala-a-brief-guide/
