@@ -205,8 +205,9 @@ object Main {
   }
 
   def sort(tasks:ArrayBuffer[Task]): Unit ={
-    println("What would you like to sort on?\n1. category\n2. priority\nPlease type the number of the command.\n")
+    println("What would you like to sort by?\n1. title\n2. due date\n3. priority\n4. description\n5. category\nPlease type the number of the command.\n")
     var sinput = readInt()
+    /*
     if (sinput == 1){
       //tasks.sortBy(_.getCategory())
       println("Sorting alphabetically by category: \n")
@@ -220,22 +221,27 @@ object Main {
     } else {
       println("Oops! I don't understand that command.")
     }
-    //readInt() match {
-    //  case 1 => println("Sorting alphabetically by category: \n" + tasks.sortBy(_.getCategory()))
-    //  case 2 => println("Sorting by priority: \n" + tasks.sortBy(_.getPriority()))
-    //  case other => println("Oops! I don't understand that command.")
-    //}
+     */
+    sinput match {
+      case 1 => viewAllTasks(tasks.sortBy(_.getTitle()))
+      case 2 => viewAllTasks(tasks.sortBy(_.getDueDate()))
+      case 4 => viewAllTasks(tasks.sortBy(_.getPriority()))
+      case 3 => viewAllTasks(tasks.sortBy(_.getDescription()))
+      case 5 => viewAllTasks(tasks.sortBy(_.getCategory()))
+      case other => println("Oops! I don't understand that command.")
+    }
   }
 
   //def sortFunc(): Unit ={}
 
   def filter(tasks:ArrayBuffer[Task]): Unit ={
-    println("What would you like to filter on?\n1. category\n2. priority\nPlease type the number of the command.\n")
+    println("What would you like to filter by?\n1. category\n2. priority\nPlease type the number of the command.\n")
     var finput1 = readInt()
     if (finput1 == 1){
       println("Please type the category you would like to filter: \n")
+      var finput2 = readLine()
       for (x <- tasks) {
-        if (x.getCategory().toLowerCase() == readLine().toLowerCase()) {
+        if (x.getCategory().toLowerCase() == finput2.toLowerCase()) {
           println(x + "\n")
         }
       }
